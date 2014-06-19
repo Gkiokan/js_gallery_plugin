@@ -17,7 +17,7 @@
             $g = rand_color();
             $b = rand_color();
             
-            echo "<li><a href='#' data-url='$i'> <div  style='background:rgba($r,$g,$b,1)'>$i</div> </a></li>";
+            echo "<li><a href='#' data-url='$i'> <div  style='background:rgba($r,$g,$b,1)'> </div> </a></li>";
         }
     }
 
@@ -31,15 +31,20 @@
     
     <body>
         <style>
-            body { padding:0px; margin:0px; }
+            body { padding:0px; margin:0px; font-family: sans-serif; }
             
-            .preview { display: block; margin:0px auto; width:500px; height:300px; border:0px solid blue; position: relative;}
+            .preview {
+                /*width:500px; height:300px;*/
+                width:100%; height:100%;
+                display: block; margin:0px auto; border:0px solid blue;
+                position: fixed; top:0px; right:0px; left:0px; bottom:0px; z-index:-10;
+            }
             .preview ul { list-style:none; border:0px solid green; margin:0px; padding:0px; }
             .preview ul li { width:100%; height:100%; display: none; border: 0px solid red; margin:0px; padding: 0px; position: absolute; }
-            .preview ul li div { width:100%; height:100%; display: block; }
+            .preview ul li div { width:100%; height:100%; display: block; font-size:100%; }
             .preview ul .active { display: inherit; }
             
-            .control_panel { width:100%; height:auto; background: rgba(0,0,0,.9); }
+            .control_panel { display: inline-block; padding: 20px; height:auto; background: rgba(255,255,255,.7); z-index:10; position: fixed; bottom:10%; left:0px; box-shadow:0px 0px 5px #000; }
             .control_panel a { margin:5px 10px; padding:5px 10px; border: 1px solid gray; display: inline-block; border-radius:5px; box-shadow:0px 0px 2px #555; }
             .control_panel a:hover { box-shadow:0px 0px 10px #555; }
             .control_panel .first { background: rgba(255,200,155, .7); }
@@ -47,11 +52,64 @@
             .control_panel .play { background: rgba(10,200,10, .7); }
             .control_panel .stop { background: rgba(200,10,10,.7);}
             
-            .debug { border: 1px solid green; font-family:sans-serif; font-size:10px; height:200px; overflow: scroll; }
+            .debug { border: 1px solid green; font-family:sans-serif; font-size:10px; height:200px; overflow: hidden; position: absolute; right:0px; top:100px; }
+        
+            .container { background: #fff; padding: 20px; display: block; margin:0px auto; max-width:970px; margin-bottom:20%; }
         </style>
         
-        <h1>JS Gallery Engine</h1>
-        <h4>by Gkiokan Sali</h4>
+        
+        <div class='container'>
+            <h1>JS Gallery Engine</h1>
+            <h4>by Gkiokan Sali</h4>
+            <hr>
+            <br>
+                <h2>Welcome to the Introduction of JS Gallery Engine</h2>
+                <br>
+                This will be a very little Plugin used with jQuery to perform a Gallery within your selected images.<br>
+                You'll only need to declare your DIV Container which has the images listed in an unlisted form
+                and the Plugin will make the rest for you.<br>
+                <br>
+                In this DEMO I'll show you the way of doing it with colors for now.<br>
+                An Extended DEMO will be soon avaible with Images, too.<br>
+                But there are not much difference at last the targets will be defined by CSS.<br>
+                <br>
+                <br>
+                <h3>Prepare your Images</h3>
+                <pre>
+                    <?
+                    $prepare_example = "
+    <div class='gallery'>
+        <ul>
+            <li><div style='background: #4a5' data-src=''> Some Content if you wish </div></li>
+            <li><div style='background: #dad' data-src=''> 2nd Condition for text </div></li>
+            <li><div style='background: #f5b' data-src=''> Credit and specifications </div></li>
+            <li><div style='background: #88a' data-src=''>  </div></li>
+        </ul>
+    </div>";
+                    echo htmlentities($prepare_example);
+                    ?>
+                </pre>
+                <br>
+                <br>
+                <h3>1. Include the Plugin</h3>
+                You'll need first to include jQuery above v1.11.0<br>
+                Include the <b>js_gallery_engine.js</b> in your Code.<br>
+                <br>
+                <br>
+                <h3>2. Select your DIV Container</h3>
+                Either in the Code itself or before the code include use (for this example)<br>
+                <pre> var preview  = $('.gallery'); </pre>
+                <br>
+                <br>
+                <br>
+                <hr>
+                    There will be an more detailed Tutorial and Example soon.<br>
+                    This is just for you, to get an Idea what will be possible with it.<br>
+                    <br>
+                    Thanks.<br>
+                    Gkiokan
+        </div>
+        
         
         <div class='preview'>
             <ul>
@@ -61,6 +119,7 @@
         </div>
         
         <div class='control_panel'>
+            <h2>Gallery Controls</h2>
             <a href='#' class='control first' data-src='first'> first </a>
             <a href='#' class='control next' data-src='next'> next </a>
             <a href='#' class='control play' data-src='play'> play diashow</a>
