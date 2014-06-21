@@ -10,14 +10,29 @@
     }
     
     function list_thumb(){
-        
+        $bg = array(
+                    'http://www.hdwallsource.com/img/2014/8/green-background-pictures-17225-17781-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/5/green-flower-17355-17913-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/11/cool-light-green-wallpaper-24333-24993-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/2/cool-wallpapers-hd-8086-8417-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/8/green-background-pictures-17225-17781-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/5/green-flower-17355-17913-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/11/cool-light-green-wallpaper-24333-24993-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/2/cool-wallpapers-hd-8086-8417-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/8/green-background-pictures-17225-17781-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/5/green-flower-17355-17913-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/11/cool-light-green-wallpaper-24333-24993-hd-wallpapers.jpg',
+                    'http://www.hdwallsource.com/img/2014/2/cool-wallpapers-hd-8086-8417-hd-wallpapers.jpg'                    
+                   );
         for($i=1; $i<=10; $i++){
             
             $r = rand_color();
             $g = rand_color();
             $b = rand_color();
             
-            echo "<li><a href='#' data-url='$i'> <div  style='background:rgba($r,$g,$b,1)'> </div> </a></li>";
+            $bg_call = $bg[$i];
+            
+            echo "<li><a href='#' data-url='$i'> <div  style='background:rgba($r,$g,$b,1);background-image: url($bg_call); background-size:cover;'> </div> </a></li>";
         }
     }
 
@@ -74,31 +89,40 @@
                 But there are not much difference at last the targets will be defined by CSS.<br>
                 <br>
                 <br>
-                <h3>Prepare your Images</h3>
+                <h3>Prepare your Images or BackgroundColors</h3>
                 <pre>
                     <?
                     $prepare_example = "
-    <div class='gallery'>
-        <ul>
-            <li><div style='background: #4a5' data-src=''> Some Content if you wish </div></li>
-            <li><div style='background: #dad' data-src=''> 2nd Condition for text </div></li>
-            <li><div style='background: #f5b' data-src=''> Credit and specifications </div></li>
-            <li><div style='background: #88a' data-src=''>  </div></li>
-        </ul>
-    </div>";
+<div class='gallery'>
+    <ul>
+        <li><div style='background: #fda; background-image: url('IMAGE_URL_1'); background-size:cover;'> </div></li>
+        <li><div style='background: #a5d; background-image: url('IMAGE_URL_2'); background-size:cover;'> </div></li>
+        <li><div style='background: #4a5' data-src=''> Some Content if you wish </div></li>
+        <li><div style='background: #dad' data-src=''> 2nd Condition for text </div></li>
+        <li><div style='background: #f5b' data-src=''> Credit and specifications </div></li>
+        <li><div style='background: #88a' data-src=''>  </div></li>
+    </ul>
+</div>";
                     echo htmlentities($prepare_example);
                     ?>
                 </pre>
                 <br>
                 <br>
                 <h3>1. Include the Plugin</h3>
-                You'll need first to include jQuery above v1.11.0<br>
+                You'll need first to include jQuery (Plugin is actually using v1.10+)<br>
                 Include the <b>js_gallery_engine.js</b> in your Code.<br>
+                <pre> <?=htmlentities("<script src='PATH_TO_JS/jQuery URL'></script>"); ?></pre>
+                <pre> <?=htmlentities("<script src='PATH_TO_JS/js.gallery_engine.js'></script>"); ?></pre>
                 <br>
                 <br>
                 <h3>2. Select your DIV Container</h3>
                 Either in the Code itself or before the code include use (for this example)<br>
-                <pre> var preview  = $('.gallery'); </pre>
+                <pre> <?=htmlentities("
+    <script>
+        $(function(){
+            var preview  = $('.gallery');
+        });
+    </script>");?> </pre>
                 <br>
                 <br>
                 <br>
@@ -136,7 +160,8 @@
                 ul = preview.children(),
                 li = ul.children(),
                 el = li.children(),
-                div = el.children();
+                div = el.children(),
+                dia_i = 0;
             
             var debug = $('.debug');
             
@@ -146,7 +171,7 @@
                 debug.prepend(input+"<br>");
                 debug.scrollTop();
             }
-            console.log(preview+ul+li+el);
+            // console.log(preview+ul+li+el);
             
             $('.first').on('click', function(){
                 $('.preview ul li').fadeOut().removeClass('active');
@@ -173,12 +198,13 @@
             
             $('.play').on('click',function(){
                 dia = setInterval(function(){ $('.next').trigger('click'); }, 500);
-                add_debug('start diashow');
+                add_debug('start diashow '+dia);
+                var dia_i = dia_i+1;
             })
             
             $('.stop').on('click', function(){
-                clearInterval(dia);
-                add_debug('stop diashow');
+                    clearInterval(dia);
+                    add_debug('stop diashow '+dia[dia_i]);
             });
         });
         </script>
