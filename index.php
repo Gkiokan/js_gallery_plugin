@@ -125,6 +125,9 @@
     </script>");?> </pre>
                 <br>
                 <br>
+                <h3>Give attention to your CSS</h3>
+                You'r ul li Elements have to be in position Absolute, if you want a <br>
+                smooth Animation between the Pictures. Just found that bug and added the fix.<br>
                 <br>
                 <hr>
                     There will be an more detailed Tutorial and Example soon.<br>
@@ -176,7 +179,7 @@
             $('.first').on('click', function(){
                 $('.preview ul li').fadeOut().removeClass('active');
                 $('.preview ul li').first().fadeIn().addClass('active');
-                add_debug('First el show');
+                //add_debug('First el show');
             });
             
             $('.next').on('click', function(){
@@ -186,11 +189,12 @@
                     var next_li = $('.preview ul li').first();
                 }
                 
-                var active_c = active.children().children().html();
-                var next_c = next_li.children().children().html();
-                add_debug('open '+next_c);
-                active.fadeOut().removeClass('active');
-                next_li.fadeIn().addClass('active');
+                //var active_c = active.children().children().html();
+                //var next_c = next_li.children().children().html();
+                //add_debug('open '+next_c);
+                
+                active.fadeOut(700).removeClass('active');
+                next_li.fadeIn(500).addClass('active');
             })
             
             if (!start_check){ $('.first').trigger('click'); add_debug('Trigger autoclick'); }
@@ -199,7 +203,7 @@
             $('.play').on('click',function(){
                 dia = setInterval(function(){ $('.next').trigger('click'); }, 500);
                 add_debug('start diashow '+dia);
-                var dia_i = dia_i+1;
+                var dia_i = dia_i+=1;
             })
             
             $('.stop').on('click', function(){
